@@ -7,6 +7,17 @@ const error = require("../utilities/error");
 router
   .route("/")
   .get((req, res) => {
+    const userId = req.query.userId;
+    let filteredPosts = posts;
+
+    if(userId){
+      filteredPosts = posts.filter(post => post.userId == userId);
+      if (filteredPosts.length === 0){
+        return res.status(404).json({message: "No posts found for that id."})
+      }
+      res.json({posts: filteredPosts});
+    }
+
     const links = [
       {
         href: "posts/:id",
