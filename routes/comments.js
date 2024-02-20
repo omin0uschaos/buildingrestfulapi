@@ -24,6 +24,8 @@ router.route("/")
       });
 router.route("/:id")
       .get((req, res) =>{
-        res.json
+        const comment = comments.find((c) => c.id == req.params.id);
+        if(comment) res.json({comment});
+        else next();
       })
 module.exports = router;
