@@ -9,7 +9,7 @@ router.route("/")
         res.json({comments});
     })
     .post((req, res, next) => {
-        if (req.body.name && req.body.username && req.body.email) {
+        if (req.body.userId && req.body.postId && req.body.body) {
     
           const comment = {
             id: comments[comments.length - 1].id + 1,
@@ -22,5 +22,8 @@ router.route("/")
           res.json(comments[comment.length - 1]);
         } else next(error(400, "Insufficient Data"));
       });
-
+router.route("/:id")
+      .get((req, res) =>{
+        res.json
+      })
 module.exports = router;
