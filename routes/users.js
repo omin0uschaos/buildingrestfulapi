@@ -2,6 +2,7 @@ const express = require("express");
 const router = express.Router();
 
 const users = require("../data/users");
+const posts = require("../data/posts");
 const error = require("../utilities/error");
 
 router
@@ -82,7 +83,13 @@ router
   });
 router.route("/:id/posts")
   .get((req, res, next) => {
-
+    const userId = req.params.id;
+    const userPosts = posts.filter(post => post.userId == userId);
+    if (userPosts.length > 0){
+      res.json(userPosts);
+    } else {
+      res.status(404).json({message: "No posts found for the specified user."})
+    }
   })
 
 module.exports = router;
